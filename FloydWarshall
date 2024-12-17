@@ -1,0 +1,91 @@
+Program for Floyd Warshall Algorithm: 
+ 
+import java.util.Scanner; 
+ 
+public class FW { 
+ 
+    static final int INF = Integer.MAX_VALUE; 
+ 
+    public static void floydWarshall(int[][] graph) { 
+        int V = graph.length; 
+        int[][] dist = new int[V][V]; 
+        int[][] next = new int[V][V]; // To keep track of the next vertex on the path 
+ 
+        // Initialize distance and next matrices 
+        for (int i = 0; i < V; i++) { 
+            for (int j = 0; j < V; j++) { 
+                if (i == j) { 
+                    dist[i][j] = 0; 
+                    next[i][j] = -1; // No next node needed for self loops 
+                } else if (graph[i][j] != 0) { 
+                    dist[i][j] = graph[i][j]; 
+                    next[i][j] = j; // Next vertex is the destination itself 
+                } else { 
+                    dist[i][j] = INF; 
+                    next[i][j] = -1; // No path 
+                } 
+            } 
+        } 
+ 
+        // Main algorithm 
+        for (int k = 0; k < V; k++) { 
+            for (int i = 0; i < V; i++) { 
+                for (int j = 0; j < V; j++) { 
+                    if (dist[i][k] != INF && dist[k][j] != INF) { 
+                        if (dist[i][j] > dist[i][k] + dist[k][j]) { 
+                            dist[i][j] = dist[i][k] + dist[k][j]; 
+                            next[i][j] = next[i][k]; // Update the next vertex on the path 
+                        } 
+                    } 
+                } 
+            } 
+        } 
+ 
+        // Print the result 
+        printSolution(dist, next); 
+    } 
+ 
+    static void printSolution(int[][] dist, int[][] next) { 
+        int V = dist.length; 
+        System.out.println("Shortest distances between every pair of vertices:"); 
+        for (int i = 0; i < V; i++) { 
+            for (int j = 0; j < V; j++) { 
+                if (dist[i][j] == INF) { 
+                    System.out.print("INF "); 
+                } else { 
+                    System.out.print(dist[i][j] + " "); 
+                } 
+            } 
+            System.out.println(); 
+        } 
+ 
+        System.out.println("\nIntermediate nodes (next vertex on the path):"); 
+        for (int i = 0; i < V; i++) { 
+            for (int j = 0; j < V; j++) { 
+                if (next[i][j] == -1) { 
+                    System.out.print("N "); 
+                } else { 
+                    System.out.print(next[i][j] + " "); 
+                } 
+            } 
+            System.out.println(); 
+        } 
+    } 
+ 
+    public static void main(String[] args) { 
+        Scanner scanner = new Scanner(System.in); 
+ 
+        System.out.print("Enter the number of vertices: "); 
+        int V = scanner.nextInt(); 
+        int[][] graph = new int[V][V]; 
+ 
+        System.out.println("Enter the adjacency matrix (0 for no edge, enter weight for edges):"); 
+        for (int i = 0; i < V; i++) { 
+            for (int j = 0; j < V; j++) { 
+                graph[i][j] = scanner.nextInt(); 
+            } 
+        } 
+ 
+        floydWarshall(graph); 
+    } 
+}
