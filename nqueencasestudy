@@ -1,0 +1,117 @@
+PRACTICAL 10
+CASE STUDY ON THE 8 QUEENS PROBLEM
+
+•	THEORY:
+Complexity Theory is a branch of theoretical computer science and mathematics that studies the resources required for solving computational problems. These resources could include time (how many steps an algorithm takes) and space (how much memory it uses). It provides a framework to classify problems based on their inherent difficulty and the efficiency of algorithms that solve them.
+Key Concepts in Complexity Theory:
+1.	Time Complexity:
+o	Refers to the number of steps or operations required to solve a problem as a function of the input size.
+o	Measured using Big-O notation, e.g., O(1)O(1)O(1), O(log⁡n)O(\log n)O(logn), O(n)O(n)O(n), O(n2)O(n^2)O(n2), etc.
+
+2.	Space Complexity:
+o	Refers to the amount of memory used by an algorithm relative to the input size.
+
+3.	Complexity Classes:
+a)	P (Polynomial Time): 
+• Definition: Problems in the class P are those that can be solved in polynomial time by a deterministic machine, such as a standard computer running a deterministic algorithm.
+• Characteristics:
+•	Polynomial time means the number of steps required to solve a problem can be expressed as a polynomial function of the input size nnn (e.g., O(n)O(n)O(n), O(n2)O(n^2)O(n2), O(n3)O(n^3)O(n3)).
+•	These problems are considered "efficiently solvable" because polynomial time grows at a reasonable rate with input size.
+• Examples:
+•	Sorting an array (e.g., merge sort with O(nlog⁡n)O(n \log n)O(nlogn)).
+•	Finding the shortest path in a graph (e.g., Dijkstra's algorithm).
+•	Matrix multiplication.
+
+
+b)	NP (Non-deterministic Polynomial Time): 
+• Definition: NP is the class of problems for which a solution can be verified in polynomial time by a deterministic machine. This does not necessarily mean that finding the solution is efficient or feasible.
+• Characteristics:
+•	NP problems are often described as problems solvable in polynomial time on a non-deterministic machine (a theoretical machine that can "guess" the correct solution).
+•	Verification means that, given a potential solution, we can check its correctness in polynomial time.
+• Examples:
+•	The Travelling Salesman Problem (TSP): Given a list of cities and distances, can we verify that a given route has a total length less than a certain threshold?
+•	Subset Sum Problem: Given a set of numbers, does a subset exist that adds up to a given target value?
+
+c)	NP-Complete: 
+•	Definition: NP-Complete problems are the hardest problems in NP. A problem is NP-Complete if:
+1.	It is in NP.
+2.	Every other problem in NP can be reduced to it in polynomial time.
+•	Importance:
+o	If a polynomial-time algorithm is found for one NP-Complete problem, all problems in NP can be solved in polynomial time. This is because NP-Complete problems are inter-reducible.
+	Characteristics:
+o	Solving an NP-Complete problem is believed to be computationally difficult.
+o	Examples of reduction include transforming one problem into another (e.g., reducing the Subset Sum Problem to the Knapsack Problem).
+	Examples:
+o	SAT (Boolean Satisfiability Problem): Given a logical formula, is there an assignment of true/false values to variables that makes the formula true?
+o	TSP (decision version): Can a salesman visit all cities exactly once and return to the starting point with a cost less than a given value?
+d)	NP-Hard: 
+• Definition: NP-Hard problems are at least as hard as the hardest problems in NP. However, they do not necessarily belong to NP because their solutions may not be verifiable in polynomial time.
+• Characteristics:
+•	NP-Hard problems may involve tasks that require more than a polynomial amount of memory or time to verify.
+•	They include decision problems, optimization problems, and problems outside NP.
+• Examples:
+•	Halting Problem: Determine whether a given program will eventually halt or run indefinitely. This is undecidable, and thus outside NP.
+•	General TSP (optimization version): Find the shortest possible route to visit all cities and return to the starting city.
+
+
+4.	Reducibility and Hardness:
+o	Problems can often be transformed (reduced) into one another to prove their hardness.
+o	If a problem in NP can be reduced to an NP-Complete problem, it is at least as hard as that NP-Complete problem.
+
+
+•	THE 8 QUEENS PROBLEM:
+Description
+The 8 Queens Problem is a classic puzzle in which the goal is to place 8 queens on a standard 8x8 chessboard such that no two queens threaten each other. This means that no two queens can share the same row, column, or diagonal. The challenge of the 8 Queens Problem lies in finding all possible configurations where the queens can be placed without attacking each other.
+
+Methods to Solve the Problem
+There are multiple ways to solve the 8 Queens Problem, but two widely used methods are:
+Backtracking Algorithm
+Genetic Algorithm
+
+1. Backtracking Algorithm
+Algorithm
+Backtracking is a systematic way to solve constraint satisfaction problems like the 8 Queens Problem by exploring all possible configurations until a solution is found. In the case of the 8 Queens, it involves placing queens on each row one by one and checking if the current position is safe.
+
+Here's a step-by-step description of the algorithm:
+•	Start from the first row and place a queen in the first column.
+•	Move to the next row and try placing a queen in each column of that row.
+•	For each placement, check if it’s safe (i.e., no other queens threaten the position).
+•	If it’s safe, proceed to place queens in the following rows.
+•	If placing a queen on a row results in an unsafe position or there are no valid moves for the next rows, backtrack by removing the last placed queen and trying the next possible column in the previous row.
+•	Repeat the process until all 8 queens are placed on the board in a valid configuration.
+
+Time Complexity
+The backtracking algorithm has a time complexity of approximately O(N!), where 
+𝑁
+=
+8
+N=8 for this problem. This complexity arises because, in the worst case, the algorithm explores all possible placements.
+
+
+2. Genetic Algorithm
+Algorithm
+The Genetic Algorithm (GA) is an optimization technique inspired by natural selection, used to find solutions to combinatorial problems. For the 8 Queens Problem, the GA operates by evolving a population of potential solutions, where each solution is a unique arrangement of queens.
+
+Here’s a breakdown of the GA approach:
+
+•	Initialization: Generate an initial population of random solutions (chromosomes), each representing a possible configuration of queens on the board.
+•	Fitness Evaluation: Calculate the fitness of each solution based on the number of conflicts between queens (lower conflicts indicate higher fitness).
+•	Selection: Select solutions with the highest fitness scores for reproduction.
+•	Crossover: Combine pairs of selected solutions to create new offspring.
+•	Mutation: Introduce small changes in offspring to maintain diversity and explore new configurations.
+•	Termination: Repeat the steps above until a solution with zero conflicts (i.e., no queens attacking each other) is found or a predefined number of generations is reached.
+
+Time Complexity:
+The Genetic Algorithm’s time complexity is harder to estimate as it depends on factors like population size, mutation rate, and the number of generations. However, it generally performs better in finding an approximate solution faster but doesn’t guarantee an optimal solution in every run.
+
+Analysis
+Method	Time Complexity	Space Complexity	Characteristics
+Backtracking	O(N!)	O(N)	Finds exact solutions but is computationally intensive.
+Genetic Algorithm	Varies	Varies	Often faster but doesn’t guarantee an optimal solution.
+
+
+
+
+
+•	CONCLUSION
+For the 8 Queens Problem, backtracking is often the best method if the goal is to find an exact solution. It systematically explores each possible configuration and guarantees an optimal solution. However, if a quick, approximate solution is acceptable, Genetic Algorithm can be a good alternative due to its faster convergence in many cases.
