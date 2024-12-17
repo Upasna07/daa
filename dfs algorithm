@@ -1,0 +1,64 @@
+Program For Depth First Search(DFS) and to check whther the graph is
+ connected or not.
+ import java.util.Scanner;
+ public class DFSGraph {
+ private int V; // Number of vertices
+ private int[][] adjMatrix; // Adjacency matrix
+ private boolean[] visited; // To mark visited vertices
+ // Constructor to initialize the graph
+ public DFSGraph(int V) {
+ this.V = V;
+ adjMatrix = new int[V][V];
+ visited = new boolean[V];
+ }
+ // Add an edge to the graph (undirected graph)
+ public void addEdge(int u, int v) {
+ adjMatrix[u][v] = 1;
+ adjMatrix[v][u] = 1;
+ }
+ // DFS starting from a given vertex
+ public void DFS(int vertex) {
+ visited[vertex] = true;
+ System.out.print(vertex + " ");
+ for (int i = 0; i < V; i++) {
+ if (adjMatrix[vertex][i] == 1 && !visited[i]) {
+ DFS(i);
+ }
+ }
+ }
+ // Method to check if the graph is connected
+ public boolean isConnected() {
+ // Start DFS from the first vertex (vertex 0)
+ DFS(0);
+ // After DFS, check if all vertices are visited
+ for (int i = 0; i < V; i++) {
+ if (!visited[i]) {
+ return false; // If any vertex is not visited, the graph is not connected
+ }
+ }
+ return true;
+ }
+ // Main method
+ public static void main(String[] args) {
+ Scanner scanner = new Scanner(System.in);
+//Getthenumberofvertices
+ System.out.print("Enterthenumberofvertices:");
+ intV=scanner.nextInt();
+ DFSGraphgraph=newDFSGraph(V);
+ //Getthenumberofedges
+ System.out.print("Enterthenumberofedges:");
+ intE=scanner.nextInt();
+ //Inputedgesforthegraph
+ System.out.println("Entertheedges(aspairsofverticesuandv):");
+ for(inti=0;i<E;i++){
+ intu=scanner.nextInt();
+ intv=scanner.nextInt();
+ graph.addEdge(u,v);
+ }
+ //PerformDFSandcheckifthegraphisconnected
+ System.out.println("DFSTraversalofthegraphstartingfromvertex0:");
+ booleanconnected=graph.isConnected();
+ System.out.println("\nIsthegraphconnected?"+connected);
+ scanner.close();
+ }
+ }
