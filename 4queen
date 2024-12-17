@@ -1,0 +1,47 @@
+Program to find all possible solutions of four queen problem
+ public class FourQueens {
+ static int[] x = new int[5]; // Array to store queen positions (index is the row, value is the column)
+ // Function to check if placing a queen at (k, i) is valid
+ public static boolean Place(int k, int i) {
+ for (int j = 1; j <= k- 1; j++) {
+ if (x[j] == i | Math.abs(x[j]- i) == Math.abs(j- k)) {
+ return false; // Conflict with previously placed queens
+ }
+ }
+ return true; // Valid position
+ }
+ // Recursive function to place queens
+ public static void NQueens(int k, int n) {
+ for (int i = 1; i <= n; i++) {
+ if (Place(k, i)) {
+ x[k] = i; // Place queen at (k, i)
+ if (k == n) {
+ // If all queens are placed, print the solution
+ printSolution(n);
+ } else {
+ // Recursively place queens in the next row
+ NQueens(k + 1, n);
+ }
+ }
+ }
+ }
+ // Function to print the solution
+ public static void printSolution(int n) {
+ System.out.println("One of the solutions:");
+ for (int i = 1; i <= n; i++) {
+ for (int j = 1; j <= n; j++) {
+ if (x[i] == j) {
+ System.out.print("Q "); // Queen position
+ } else {
+ System.out.print(". "); // Empty position
+ }
+ }
+ System.out.println();
+ }
+ System.out.println();
+ }
+ public static void main(String[] args) {
+ int n = 4; // Four-Queens problem
+ NQueens(1, n); // Start placing queens from the first row
+ }
+ }
